@@ -1,0 +1,6 @@
+<!--pages/metro/subPage/lineList/index.wxml-->
+<view class="line">
+    线路
+    <button bindtap="handleClickTo">123</button>
+    <t-tree-select options="{{lineList}}" value="{{value}}" bind:change="onChange" />
+</view>
