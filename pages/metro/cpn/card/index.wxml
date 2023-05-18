@@ -1,0 +1,5 @@
+<t-grid class="block" column="{{4}}" theme="card">
+    <block wx:for="{{lists}}" wx:key="id">
+        <t-grid-item text="{{item.title}}" image="{{item.icon}}" bindtap="onTapGridItem" data-pagename="{{item.link}}" />
+    </block>
+</t-grid>
