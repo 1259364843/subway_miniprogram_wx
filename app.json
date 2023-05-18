@@ -1,13 +1,35 @@
 {
-  "pages":[
+  "pages": [
+    "pages/metro/metro",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/metro/subPage/SiteDetails/index",
+    "pages/metro/subPage/lineList/index",
+    "pages/metro/subPage/with-icon/index"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
-    "navigationBarTextStyle":"black"
+  "usingComponents": {
+    "t-col": "tdesign-miniprogram/col/col",
+    "t-row": "tdesign-miniprogram/row/row",
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-tag": "tdesign-miniprogram/tag/tag",
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-popup": "tdesign-miniprogram/popup/popup",
+    "t-image": "tdesign-miniprogram/image/image",
+    "t-image-viewer": "tdesign-miniprogram/image-viewer/image-viewer",
+    "t-tabs": "tdesign-miniprogram/tabs/tabs",
+    "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
+    "t-divider": "tdesign-miniprogram/divider/divider",
+    "t-side-bar": "tdesign-miniprogram/side-bar/side-bar",
+    "t-side-bar-item": "tdesign-miniprogram/side-bar-item/side-bar-item",
+    "t-tree-select": "tdesign-miniprogram/tree-select/tree-select",
+    "t-loading": "tdesign-miniprogram/loading/loading"
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#f6f6f6",
+    "backgroundColor": "#f6f6f6",
+    "navigationBarTitleText": "地铁🚇",
+    "navigationBarTextStyle": "black"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"

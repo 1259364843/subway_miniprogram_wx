@@ -3,5 +3,6 @@
   "projectname": "subway",
   "setting": {
     "compileHotReLoad": true
-  }
+  },
+  "libVersion": "2.31.1"
 }
