@@ -1,0 +1,149 @@
+<!--pages/metro/subPage/SiteDetails/index.wxml-->
+<!-- 站点详情 -->
+<view>
+    <view class="input" wx:if="{{isShowStaionInput}}">
+        <t-input label="站点ID" placeholder="请输入站点ID" value="{{stationNo}}" bindchange="onStationId">
+            <t-button slot="suffix" theme="primary" size="extra-small" bindtap="handleSearch"> 查询 </t-button>
+        </t-input>
+    </view>
+    <view>
+        <!-- 站点基本信息OK -->
+        <view class="station-meta">
+            <!-- 站点名称 -->
+            <text class="station-name">{{stationDetail.stationName}}</text>
+            <!-- 站点code -->
+            <block wx:for="{{stationDetail.stationCodes}}" wx:key="id">
+                <view class="station-code">
+                    <t-tag class="margin-16" variant="outline" shape="round">{{item.lineNo}}
+                        {{item.stationCode}}</t-tag>
+                </view>
+            </block>
+        </view>
+
+        <t-tabs class="bigger" defaultValue="{{stationDetail.stationDirecInfo[0].lineNo}}" bind:change="onTabsChange" bind:click="onTabsClick" value="{{tabValue}}">
+            <block wx:for="{{stationDetail.stationDirecInfo}}" wx:key="id">
+                <t-tab-panel label="{{item.lineName}}" value="{{item.lineNo}}" />
+            </block>
+        </t-tabs>
+        <!-- 列车列表TODO -->
+        <view class="train-list">
+            <view wx:for="{{trainList}}" wx:key="id">
+                <view class="train-item">
+                    <view class="r1">
+                        <view>
+                            <text>开往 </text>
+                            <t-tag class="margin-16" variant="light" shape="round" theme="success" size="large">{{item.endStationName}}</t-tag>
+                        </view>
+                        <view style="font-size: 25rpx;">预计到站时间</view>
+                    </view>
+                    <view class="r1">
+                        <text>下一站</text>
+                        <view class="preset-time" wx:if="{{item.trainList.length === 0}}">
+                            等待发车
+                        </view>
+                        <block wx:for="{{item.trainList}}" wx:for-item="train" wx:key="id">
+                            <view class="next-station" wx:if="{{train.nextStationName !== null}}">
+                                <t-icon name="location" />{{train.nextStationName}}
+                            </view>
+                            <!-- 倒计时 -->
+                            <view class="demo-count-down" wx:if="{{train.duration >= 3}}">
+                                <view class="demo-count-down-content">
+                                    <t-count-down bind:finish="hanldeFinish" content="default" format="mm:ss" time="{{ train.duration * 1000 }}" splitWithUnit theme="round" />
+                                </view>
+                            </view>
+                            <view wx:else class="preset-time">
+                                列车进站
+                            </view>
+                        </block>
+                    </view>
+                    <!-- 乘换引导 -->
+                    <view class="r1">
+                        <view>
+                            <t-link size="small" theme="primary" content="乘换引导" prefixIcon="link" hover bind:tap="hanldeLink" data-item="{{item}}" />
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- 站内设施 -->
+    <view class="more">
+        <t-tabs value="{{currentTab}}" bind:click="onTabsClick2">
+            <t-tab-panel icon="tools" label="站内设施" value="1" />
+            <t-tab-panel icon="enter" label="出入口信息" value="2" />
+        </t-tabs>
+        <view class="facility" wx:if="{{currentTab === '1'}}">
+            <!-- 站内设施 -->
+            <view wx:for="{{stationDetail.facilities.stationFacilities}}" wx:key="id">
+                <block wx:if="{{item.description!== ''}}">
+                    <view class="facility-title">{{item.name}}</view>
+                    <!-- <text>{{item.type}}</text> -->
+                    <view class="facility-description">{{item.description}}</view>
+                    <!-- <t-divider align="left" content="文字信息" /> -->
+                    <t-divider />
+                </block>
+            </view>
+            <!-- 商业信息 -->
+            <view class="business">
+                <view class="business-title">商业信息</view>
+                <view class="business-detail">
+                    <block wx:for="{{shops}}" wx:key="index">
+                        <view>
+                            <text class="exit">{{item[0]}}: </text>
+                            <text>{{item[1]}}</text>
+                        </view>
+                    </block>
+                </view>
+            </view>
+        </view>
+        <!-- 出入口信息 -->
+        <view wx:if="{{currentTab === '2'}}">
+            <block wx:for="{{stationDetail.entrances.roundInfo}}" wx:key="id">
+                <view class="entrances">
+                    <t-tag class="entrances-entry" theme="success" variant="outline" shape="mark">{{item.entry}} 口</t-tag>
+                    <text class="entrances-location">{{item.location}}</text>
+                </view>
+            </block>
+        </view>
+    </view>
+
+    <!-- 弹出层 -->
+    <t-popup visible="{{visible}}" placement="bottom" bind:visible-change="onVisibleChange">
+        <view class="block">
+            <view class="header">
+                <view class="btn btn--cancel" aria-role="button">关闭</view>
+                <view class="title">乘换引导</view>
+                <view class="btn btn--confirm" aria-role="button">确定</view>
+            </view>
+            <!-- 乘换引导 -->
+            <view class="guidance">
+                <t-row>
+                    <t-col span="12" t-class="dark" class="col">
+                        <view>开门方向</view>
+                        <view class="value">{{guidance.openDoorDes}}</view>
+                    </t-col>
+                    <t-col span="12" t-class="light" class="col">
+                        <view>出站扶梯</view>
+                        <view class="value">{{guidance.escalatorDes}}</view>
+                    </t-col>
+                </t-row>
+                <t-row>
+                    <t-col span="12" t-class="dark" class="col">
+                        <view>换乘通道</view>
+                        <view class="value">{{guidance.escalatorDes}}</view>
+                    </t-col>
+                    <t-col span="12" t-class="light" class="col">
+                        <view>出站楼梯</view>
+                        <view class="value">{{guidance.stairsDes}}</view>
+                    </t-col>
+                </t-row>
+                <t-row>
+                    <t-col span="12" t-class="dark" class="col">
+                        <view>无障碍电梯</view>
+                        <view class="value">{{guidance.elevatorDes}}</view>
+                    </t-col>
+                </t-row>
+            </view>
+        </view>
+    </t-popup>
+</view>

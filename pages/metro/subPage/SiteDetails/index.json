@@ -1,0 +1,13 @@
+{
+    "usingComponents": {
+        "t-input": "tdesign-miniprogram/input/input",
+        "t-tabs": "tdesign-miniprogram/tabs/tabs",
+        "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
+        "t-check-tag": "tdesign-miniprogram/check-tag/check-tag",
+        "t-grid": "tdesign-miniprogram/grid/grid",
+        "t-grid-item": "tdesign-miniprogram/grid-item/grid-item",
+        "t-link": "tdesign-miniprogram/link/link",
+        "t-divider": "tdesign-miniprogram/divider/divider",
+        "t-count-down": "tdesign-miniprogram/count-down/count-down"
+    }
+}
