@@ -1,0 +1,7 @@
+<!--pages/user/subPages/login/index.wxml-->
+<view class="login">
+    <text>登录</text>
+    <t-input prefixIcon="app" label="手机号码" placeholder="请输入手机号" value="{{phoneNumber}}"/>
+    <t-input prefixIcon="app" label="输入密码" type="password" placeholder="请输入密码" value="{{textPassword}}" clearable />
+    <t-button theme="primary" size="large" block t-class="external-class" bindtap="onTabLoginBtn">登录</t-button>
+</view>

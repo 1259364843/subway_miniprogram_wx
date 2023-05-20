@@ -1,0 +1,14 @@
+<!--pages/user/index.wxml-->
+<view>
+    <t-button wx:if="{{userDetail.userId === ''}}" theme="primary" size="large" block t-class="external-class" bindtap="onTabLogin">登录</t-button>
+    <!-- 用户信息 -->
+    <view class="user-info">
+        <t-avatar class="avatar-example" size="large" image="{{userDetail.avatar}}" />
+        <view class="info">
+            <text>{{userDetail.nickname}}</text>
+            <text>{{userDetail.mobile}}</text>
+        </view>
+    </view>
+    <t-cell title="我的行程" hover arrow leftIcon="lock-on" bordered="{{false}}" />
+    <!-- <button bindtap="onTapQRcode">二维码</button> -->
+</view>

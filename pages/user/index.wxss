@@ -1,0 +1,10 @@
+/* pages/user/index.wxss */
+
+.user-info {
+    margin: 20rpx;
+    display: flex;
+    align-items: center;
+}
+.info {
+    margin-left: 30rpx;
+}

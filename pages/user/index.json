@@ -1,0 +1,10 @@
+{
+    "navigationBarTitleText": "我的",
+    "usingComponents": {
+        "t-avatar": "tdesign-miniprogram/avatar/avatar",
+        "t-cell": "tdesign-miniprogram/cell/cell",
+        "t-badge": "tdesign-miniprogram/badge/badge",
+        "t-switch": "tdesign-miniprogram/switch/switch",
+        "t-icon": "tdesign-miniprogram/icon/icon"
+    }
+}
