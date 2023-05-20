@@ -1,0 +1,5 @@
+<!--pages/metro/subPage/webView/index.wxml-->
+<!-- 外部网页 -->
+<view>
+    <web-view src="{{pageURL}}"></web-view>
+</view>

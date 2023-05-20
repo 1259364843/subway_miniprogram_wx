@@ -1,10 +1,20 @@
 <!--pages/metro/metro.wxml-->
-<view class="div">
-    <!-- <t-swiper current="{{current}}" autoplay="{{autoplay}}" duration="{{duration}}" interval="{{interval}}" navigation="{{ { type: 'dots' } }}" list="{{swiperList}}" bind:click="onTap" bind:change="onChange" bind:image-load="onImageLoad">
-    </t-swiper> -->
-    <grid-card lists="{{navigations}}"></grid-card>
-    <base />
-    <!-- <button bindtap="onTapHome"> home</button> -->
-    <!-- <button bindtap="onTapHome2"> home2</button> -->
-    <t-button theme="light"  size="large" block bindtap="onTapStationList">站点列表</t-button>
+<view class="home">
+    <t-swiper current="{{current}}" autoplay="{{autoplay}}" duration="{{duration}}" interval="{{interval}}" navigation="{{ { type: 'dots' } }}" list="{{swiperList}}" bind:click="onSwiperTap" bind:change="onChange" bind:image-load="onImageLoad">
+    </t-swiper>
+
+    <view class="nav">
+        <grid-card lists="{{navigations}}"></grid-card>
+    </view>
+    <!-- <t-button theme="light"  size="large" block bindtap="onTapStationList">站点列表</t-button> -->
+    <view class="mid">
+        <view class="block">
+            <t-grid column="{{3}}" theme="card">
+                <block wx:for="{{midBanners}}" wx:key="index">
+                    <t-grid-item text="{{item.title}}" image="{{itme.image}}" data-url="{{item.url}}" bindtap="onTapMidBanner"/>
+                </block>
+                <!-- <t-grid-item text="标题文字" description="描述文字" image="{{img3}}" /> -->
+            </t-grid>
+        </view>
+    </view>
 </view>

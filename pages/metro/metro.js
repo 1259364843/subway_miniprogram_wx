@@ -18,15 +18,30 @@ Page({
     },
     onTapStationList(){
         wx.navigateTo({
+            // url: "/pages/metro/subPage/webView/index",
             url: "/pages/metro/subPage/with-icon/index",
         });
     },
-    onTap(e) {
+    // 轮播图点击
+    onSwiperTap(event) {
         const {
             index
-        } = e.detail;
+        } = event.detail;
 
-        console.log(index);
+        const pageURL = this.data.swiperList[index].url
+        console.log(pageURL);
+        if (pageURL.startsWith('http')) {
+            wx.navigateTo({
+                url: "/pages/metro/subPage/webView/index",
+                success: function (res) {
+                    // 通过eventChannel向被打开页面传送数据
+                    res.eventChannel.emit('webViewPages', {
+                        data: pageURL
+                    })
+                }
+            })
+            return;
+        }
     },
     onChange(e) {
         const {
@@ -61,11 +76,13 @@ Page({
         data.topBanners.map(i => {
             list.push({
                 value: i.image,
-                ariaLabel: i.title
+                ariaLabel: i.title,
+                url: i.url
             })
         })
         this.setData({
-            swiperList: list
+            swiperList: list,
+            midBanners: data.midBanners
         })
     },
     // 获取首页菜单
@@ -82,6 +99,27 @@ Page({
         })
 
     },
+    onTapMidBanner(event) {
+        console.log(event);
+        const {
+            url
+        } = event.currentTarget.dataset;
+    
+        const pageURL = url
+        console.log(pageURL);
+        if (pageURL.startsWith('http')) {
+            wx.navigateTo({
+                url: "/pages/metro/subPage/webView/index",
+                success: function (res) {
+                    // 通过eventChannel向被打开页面传送数据
+                    res.eventChannel.emit('webViewPages', {
+                        data: pageURL
+                    })
+                }
+            })
+            return;
+        }
+    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
@@ -93,9 +131,8 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-
-    },
-
+		this.getTabBar().init();
+	},
     /**
      * 生命周期函数--监听页面隐藏
      */

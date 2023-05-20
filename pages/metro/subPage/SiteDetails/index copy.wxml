@@ -1,0 +1,108 @@
+<!--pages/metro/subPage/SiteDetails/index.wxml-->
+<!-- 站点详情 -->
+<view>
+    <t-input label="站点ID" placeholder="请输入站点ID" value="{{stationId}}" bindchange="onStationId">
+        <t-button slot="suffix" theme="primary" size="extra-small" bindtap="handleSearch"> 查询 </t-button>
+    </t-input>
+    <view>
+        <!-- 站点基本信息OK -->
+        <view class="station-meta">
+            <!-- 站点名称 -->
+            <text class="station-name">{{stationDetail.stationName}}</text>
+            <!-- 站点code -->
+            <block wx:for="{{stationDetail.stationCodes}}" wx:key="id">
+                <view class="station-code">
+                    <t-tag class="margin-16" variant="outline" shape="round">{{item.lineNo}}
+                        {{item.stationCode}}</t-tag>
+                </view>
+            </block>
+        </view>
+
+        <t-tabs class="bigger" defaultValue="{{tabValue}}" bind:change="onTabsChange" bind:click="onTabsClick">
+            <block wx:for="{{stationDetail.stationDirecInfo}}" wx:key="id">
+                <t-tab-panel label="{{item.lineName}}" value="{{item.lineNo}}" />
+            </block>
+        </t-tabs>
+        <!-- 列车列表TODO -->
+        <view class="train-list">
+            <view wx:for="{{trainList}}" wx:key="id">
+                <view class="train-item">
+                    <view class="r1">
+                        <view>
+                            <text>开往 </text>
+                            <t-tag class="margin-16" variant="light" theme="primary" size="large">{{item.endStationName}}</t-tag>
+                        </view>
+                        <text style="font-size: 25rpx;">预计到站时间</text>
+                    </view>
+                    <block wx:for="{{item.trainList}}" wx:key="id">
+                        <view class="r1">
+                            <text>下一站</text>
+                            <view class="next-station">
+                                <t-icon name="location" />{{item.nextStationName}}
+                            </view>
+                            <view class="demo-count-down" wx:if="{{item.duration >= 3}}">
+                                <view class="demo-count-down-content">
+                                    <t-count-down content="default" format="mm:ss" time="{{ item.duration * 1000 }}" splitWithUnit theme="round" />
+                                </view>
+                            </view>
+                            <view wx:else>
+                                列车进站
+                            </view>
+                        </view>
+                        <view class="r1">
+                            <view>
+                                <t-link size="small" theme="primary" content="乘换引导" prefixIcon="link" hover bind:tap="hanldeLink" />
+                            </view>
+                        </view>
+                    </block>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- 站内设施 -->
+    <view class="more">
+        <t-tabs defaultValue="{{1}}">
+            <t-tab-panel icon="tools" label="站内设施" value="1" />
+            123
+            <t-tab-panel icon="enter" label="出入口信息" value="2" />
+        </t-tabs>
+        <view class="facility">
+            <view wx:for="{{stationDetail.facilities.stationFacilities}}" wx:key="id">
+                <block wx:if="{{item.description!== ''}}">
+                    <view class="facility-title">{{item.name}}</view>
+                    <!-- <text>{{item.type}}</text> -->
+                    <view class="facility-description">{{item.description}}</view>
+                    <!-- <t-divider align="left" content="文字信息" /> -->
+                    <t-divider />
+                </block>
+            </view>
+
+        </view>
+    </view>
+    <!-- 出入口信息 -->
+    <block wx:for="{{stationDetail.entrances.roundInfo}}" wx:key="id">
+        <view class="entrances">
+            <t-tag class="entrances-entry" theme="primary">{{item.entry}} 口</t-tag>
+            <text class="entrances-location">{{item.location}}</text>
+        </view>
+    </block>
+    <!-- 商业信息 -->
+    <view class="business">
+        <view class="business-title">商业信息</view>
+        <view class="detail">{{stationDetail.facilities.shops}}</view>
+    </view>
+    <!-- <view class="img">
+        <t-image src="{{stationDetail.facilities.image}}" bind:tap="onClickImg"/>
+        <t-image-viewer deleteBtn="{{deleteBtn}}" closeBtn="{{closeBtn}}" showIndex="{{showIndex}}" visible="{{imgVisible}}" images="{{images}}" bind:change="onChange" bind:delete="onDelete" bind:close="onClose"></t-image-viewer>
+    </view> -->
+    <!-- 弹出层 -->
+    <t-popup visible="{{visible}}" placement="bottom" bind:visible-change="onVisibleChange">
+        <view class="block">
+            <view class="header">
+                <view class="btn btn--cancel" aria-role="button">关闭</view>
+                <view class="title">乘换引导</view>
+                <view class="btn btn--confirm" aria-role="button">确定</view>
+            </view>
+        </view>
+    </t-popup>
+</view>

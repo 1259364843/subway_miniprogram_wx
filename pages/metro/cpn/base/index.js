@@ -6,35 +6,37 @@ Component({
         }
     },
     data: {
-        value: 'label_1',
+        tabBarValue: '0',
         list: [{
-                value: 'label_1',
+                value: '0',
                 label: '首页',
+                url: '/pages/metro/metro',
                 icon: 'home'
             },
             {
-                value: 'label_2',
-                label: '应用',
-                icon: 'app'
+                value: '1',
+                label: '乘车',
+                icon: 'qrcode'
             },
             {
-                value: 'label_3',
-                label: '聊天',
-                icon: 'chat'
-            },
-            {
-                value: 'label_4',
+                value: '2',
                 label: '我的',
+                url: '/pages/user/index',
                 icon: 'user'
             },
         ],
     },
 
     methods: {
-        onChange(e) {
+        onTabBarChange(event) {
+            console.log(event);
             this.setData({
-                value: e.detail.value,
+                tabBarValue: event.detail.value,
             });
+            const pageURL = this.data.list[event.detail.value].url
+            wx.switchTab({
+				url: pageURL
+			});
         },
     },
 });
